@@ -1,6 +1,6 @@
 package com.crocsandcoffee.seattleplacesearch.dagger
 
-import android.content.Context
+import com.crocsandcoffee.seattleplacesearch.main.api.FourSquareService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -8,22 +8,18 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.security.SecureRandom
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
 import javax.inject.Singleton
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+
+private const val BASE_URL = "https://api.foursquare.com/v2/"
 
 @Module
 object NetworkingModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideAmazonWebService(retrofit: Retrofit): AmazonWebService {
-//        return retrofit.create(AmazonWebService::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun provideFourSquareService(retrofit: Retrofit): FourSquareService {
+        return retrofit.create(FourSquareService::class.java)
+    }
 
     @Singleton
     @Provides
@@ -34,7 +30,7 @@ object NetworkingModule {
 
         return Retrofit
             .Builder()
-//            .baseUrl(formattedBaseUrl)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -42,34 +38,10 @@ object NetworkingModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(context: Context): OkHttpClient {
-        val trustAllCerts = arrayOf<TrustManager>(
-            object : X509TrustManager {
-                @Throws(CertificateException::class)
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-                }
-
-                @Throws(CertificateException::class)
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-                }
-
-                override fun getAcceptedIssuers(): Array<X509Certificate> {
-                    return arrayOf()
-                }
-            }
-        )
-
-        val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, trustAllCerts, SecureRandom())
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient
             .Builder()
-            .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
-            .hostnameVerifier { _, _ -> true }
-            .addInterceptor(logging)
+            .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
             .build()
     }
 

@@ -1,6 +1,7 @@
 package com.crocsandcoffee.seattleplacesearch.dagger
 
 import android.content.Context
+import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.SearchFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -25,7 +26,9 @@ interface ApplicationComponent  {
     interface Factory {
         // With @BindsInstance, the Context passed in will be available in the graph
         fun create(@BindsInstance context: Context): ApplicationComponent
-
-        // injectable activities, fragments, views, etc
     }
+
+    // injectable activities, fragments, views, etc
+
+    fun inject(fragment: SearchFragment)
 }

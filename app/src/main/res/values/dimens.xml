@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recycler_view_top_margin_dp">8dp</dimen>
+    <dimen name="header_text_size_sp">18sp</dimen>
+    <dimen name="input_layout_spacing_dp">8dp</dimen>
+</resources>
