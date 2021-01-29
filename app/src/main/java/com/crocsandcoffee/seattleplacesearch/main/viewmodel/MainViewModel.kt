@@ -1,4 +1,4 @@
-package com.crocsandcoffee.seattleplacesearch.ui.main
+package com.crocsandcoffee.seattleplacesearch.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 

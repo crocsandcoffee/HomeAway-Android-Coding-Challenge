@@ -1,8 +1,9 @@
-package com.crocsandcoffee.seattleplacesearch
+package com.crocsandcoffee.seattleplacesearch.main.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.crocsandcoffee.seattleplacesearch.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.crocsandcoffee.seattleplacesearch.R
+import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.SearchFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, SearchFragment.newInstance())
                 .commitNow()
         }
     }
