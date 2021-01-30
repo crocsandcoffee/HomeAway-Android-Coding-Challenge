@@ -16,11 +16,19 @@ This sample app uses the [FourSquare Places API](https://developer.foursquare.co
 # Architecture
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/architecture.jpeg">
 
-### You can search venues via any keyword and see a list of your results.
+## You can search venues via any keyword and see a list of your results.
+### Light Mode
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/search.png" width="240">
 
-### Tapping on a venue will launch a details screen with more in depth information about a venue. 
+### Dark Mode
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/search_dark.jpg" width="240">
+
+## Tapping on a venue will launch a details screen with more in depth information about a venue. 
+### Light Mode
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.png" width="240">
+
+### Dark Mode
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details_dark.png" width="240">
 
 ### The Google Static Maps API is used to render a map view of the two relevant coordinates, along with additional info.
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.gif" width="240">
