@@ -5,6 +5,11 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.RequestManager
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.VenueListItem
 
+/**
+ * @author Omid
+ *
+ * [ListAdapter] used to display a list of [VenueListItem] by [SearchFragment]
+ */
 class VenuesListAdapter(
     private val glide: RequestManager,
     private val onClick: VenueItemOnClick

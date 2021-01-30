@@ -2,6 +2,7 @@ package com.crocsandcoffee.seattleplacesearch.dagger
 
 import android.content.Context
 import com.crocsandcoffee.seattleplacesearch.main.ui.activity.MainActivity
+import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.DetailsFragment
 import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.SearchFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -34,4 +35,5 @@ interface ApplicationComponent  {
 
     // injectable fragments
     fun inject(fragment: SearchFragment)
+    fun inject(fragment: DetailsFragment)
 }

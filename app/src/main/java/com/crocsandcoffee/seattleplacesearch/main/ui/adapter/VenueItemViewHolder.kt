@@ -9,6 +9,11 @@ import com.crocsandcoffee.seattleplacesearch.common.inflate
 import com.crocsandcoffee.seattleplacesearch.databinding.VenueListItemBinding
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.VenueListItem
 
+/**
+ * @author Omid
+ *
+ * [RecyclerView.ViewHolder] used for binding a [VenueListItem] to [VenueListItemBinding]
+ */
 class VenueItemViewHolder(
     private val binding: VenueListItemBinding,
     private val glide: RequestManager,

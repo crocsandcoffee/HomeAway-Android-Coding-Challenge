@@ -5,8 +5,19 @@ import androidx.core.net.toUri
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+// supported sizes are 32, 44, 64, and 88
 private const val ICON_SIZE = 64
 
+/**
+ * @author Omid
+ *
+ * Data class holding information applied to a [Venue]
+ *
+ * @param id unique identifier for this category.
+ * @param name of the category.
+ * @param primary if this is the primary category for parent venue object.
+ * @param icon pieces needed to construct category icons at various sizes.
+ */
 @JsonClass(generateAdapter = true)
 data class Category(
     @Json(name = "id") val id: String = "",

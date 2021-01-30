@@ -12,6 +12,11 @@ import javax.inject.Singleton
 
 private const val BASE_URL = "https://api.foursquare.com/v2/"
 
+/**
+ * @author Omid
+ *
+ * Network configuration + dependencies
+ */
 @Module
 object NetworkingModule {
 

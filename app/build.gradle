@@ -39,6 +39,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = getLocalProperties()
+
+        // Inject the API keys into the manifest
+        manifestPlaceholders = [
+                mapsApiKey : properties.getProperty("MAPS_DEBUG_API_KEY", ""),
+                clientId : properties.getProperty("FOUR_SQUARE_CLIENT_ID", ""),
+                clientSecret : properties.getProperty("FOUR_SQUARE_CLIENT_SECRET", "")
+        ]
     }
 
     /**
@@ -59,6 +68,8 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            Properties properties = getLocalProperties()
+            manifestPlaceholders.mapsApiKey = properties.getProperty("MAPS_API_KEY", "")
         }
     }
 
@@ -131,4 +142,14 @@ dependencies {
     testImplementation "com.google.truth:truth:$truth_version"
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "androidx.arch.core:core-testing:$arch_core_version"
+}
+
+def getLocalProperties() {
+    // Set the properties within `local.properties` into a `Properties` class so that values
+    // within `local.properties` (e.g. Maps API key) are accessible in this file.
+    Properties properties = new Properties()
+    if (rootProject.file("local.properties").exists()) {
+        properties.load(rootProject.file("local.properties").newDataInputStream())
+    }
+    return properties
 }

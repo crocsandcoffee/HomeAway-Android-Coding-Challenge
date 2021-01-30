@@ -13,44 +13,74 @@ import com.crocsandcoffee.seattleplacesearch.main.model.VenueSearchResult
 import com.crocsandcoffee.seattleplacesearch.main.repository.SearchVenueRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * @author Omid
+ *
+ * [ViewModel] for [SearchFragment]
+ *
+ * Responsible for passing the user's searchTerm ([query]) to the [SearchVenueRepository]
+ * and mapping the backend model to the ui model passed to the list adapter.
+ *
+ * This ViewModel emits a single [state] which indicates the UI state, which will be
+ * ane of [UiState.Error] or [UiState.Success] at any given point in time.
+ */
 class SearchFragmentViewModel(
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val repository: SearchVenueRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<SearchState>(SearchState.Success())
-    val state: StateFlow<SearchState> = _state
+    private val _state = MutableStateFlow<UiState>(UiState.Success())
+    val state: StateFlow<UiState> = _state
 
-    // TODO: cancel a previous search?
+    private var job: Job? = null
+
+    /**
+     * Query the list of venues given the [searchTerm]
+     */
     fun query(searchTerm: String) {
 
-        viewModelScope.launch(mainDispatcher) {
+         // Cancel the previous job/query if running
+        job?.cancel()
+        job = viewModelScope.launch(mainDispatcher) {
 
-            _state.emit(SearchState.Loading)
+            // if empty, return empty list so the UI updates
+            if (searchTerm.isEmpty()) {
+                _state.value = UiState.Success(emptyList())
+                return@launch
+            }
 
             when (val result = repository.searchVenues(searchTerm)) {
                 is VenueSearchResult.Success -> {
-                    _state.value = SearchState.Success(items = map(result.venues))
+                    _state.value = UiState.Success(items = map(result.venues))
                 }
                 is VenueSearchResult.Error -> {
-                    _state.value = SearchState.Error
+                    _state.value = UiState.Error
                 }
             }
         }
     }
 
+    /**
+     * Map the list of [venues] to a list of [VenueListItem]
+     */
     private suspend fun map(venues: List<Venue>) = withContext(defaultDispatcher) {
 
         venues.map { venue ->
+
             var category: Category? = null
 
+            /**
+             * If categories is not empty, we should try to find the first category that is primary
+             * to give us the main category name, if there is none, just default to the first category
+             */
             if (venue.categories.isNotEmpty()) {
                 category = venue.categories.firstOrNull { it.primary } ?: venue.categories.first()
             }
@@ -80,12 +110,21 @@ class SearchFragmentViewModel(
 
 }
 
-sealed class SearchState {
-    object Loading : SearchState()
-    object Error : SearchState()
-    data class Success(val items: List<VenueListItem> = emptyList()) : SearchState()
+/**
+ *  Sealed class hierarchy for encapsulating the different UI States for the [SearchFragment]
+ */
+sealed class UiState {
+
+    // indicates an error has occurred
+    object Error : UiState()
+
+    // indicates a state with data to render: the list of venues
+    data class Success(val items: List<VenueListItem> = emptyList()) : UiState()
 }
 
+/**
+ * UI Model displayed in our List Adapter
+ */
 data class VenueListItem(
     val id: String,
     val name: String,
@@ -96,6 +135,9 @@ data class VenueListItem(
 
     companion object {
 
+        /**
+         * A [DiffUtil.ItemCallback] used to determine item diffs when animating/updating list items
+         */
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<VenueListItem>() {
 
             override fun areItemsTheSame(oldItem: VenueListItem, newItem: VenueListItem) = oldItem.id == newItem.id
