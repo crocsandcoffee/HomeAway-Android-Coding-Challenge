@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @author Omid
+ *
+ * TODO:
+ */
 class MainActivityViewModel(
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {

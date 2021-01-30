@@ -1,6 +1,7 @@
 package com.crocsandcoffee.seattleplacesearch.main.ui.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -8,16 +9,21 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.asLiveData
 import com.crocsandcoffee.seattleplacesearch.R
 import com.crocsandcoffee.seattleplacesearch.SeattlePlaceSearchApplication
-import com.crocsandcoffee.seattleplacesearch.databinding.MainActivityBinding
+import com.crocsandcoffee.seattleplacesearch.databinding.ActivityMainBinding
 import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.DetailsFragment
 import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.SearchFragment
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.MainActivityViewModel
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.NavigationEvent
 import javax.inject.Inject
 
+/**
+ * @author Omid
+ *
+ * TODO:
+ */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: MainActivityBinding
+    private lateinit var binding: ActivityMainBinding
 
     @Inject
     lateinit var factory: MainActivityViewModel.Factory
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        binding = MainActivityBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -42,12 +48,24 @@ class MainActivity : AppCompatActivity() {
         subscribe()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
     private fun subscribe() {
         viewModel.event.asLiveData().observe(this) { event ->
 
             when (event) {
                 is NavigationEvent.NavigateToDetails -> {
-                    replaceFragment(DetailsFragment.newInstance(), addToBackStack = true, DetailsFragment.TAG)
+                    replaceFragment(DetailsFragment.newInstance(event.id), addToBackStack = true, DetailsFragment.TAG)
                 }
             }
         }

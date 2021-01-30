@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.crocsandcoffee.seattleplacesearch.R
 import com.crocsandcoffee.seattleplacesearch.common.inflate
-import com.crocsandcoffee.seattleplacesearch.databinding.VenueListItemBinding
+import com.crocsandcoffee.seattleplacesearch.databinding.ListItemVenueBinding
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.VenueListItem
 
 /**
@@ -15,7 +15,7 @@ import com.crocsandcoffee.seattleplacesearch.main.viewmodel.VenueListItem
  * [RecyclerView.ViewHolder] used for binding a [VenueListItem] to [VenueListItemBinding]
  */
 class VenueItemViewHolder(
-    private val binding: VenueListItemBinding,
+    private val binding: ListItemVenueBinding,
     private val glide: RequestManager,
     private val onClick: VenueItemOnClick
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -43,7 +43,7 @@ class VenueItemViewHolder(
          */
         fun create(parent: ViewGroup, glide: RequestManager, onClick: VenueItemOnClick): VenueItemViewHolder {
             return VenueItemViewHolder(
-                VenueListItemBinding.bind(parent.inflate(R.layout.venue_list_item)),
+                ListItemVenueBinding.bind(parent.inflate(R.layout.list_item_venue)),
                 glide,
                 onClick
             )

@@ -29,7 +29,7 @@ import javax.inject.Inject
  * and mapping the backend model to the ui model passed to the list adapter.
  *
  * This ViewModel emits a single [state] which indicates the UI state, which will be
- * ane of [UiState.Error] or [UiState.Success] at any given point in time.
+ * ane of [SearchUiState.Error] or [SearchUiState.Success] at any given point in time.
  */
 class SearchFragmentViewModel(
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
@@ -37,8 +37,8 @@ class SearchFragmentViewModel(
     private val repository: SearchVenueRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<UiState>(UiState.Success())
-    val state: StateFlow<UiState> = _state
+    private val _state = MutableStateFlow<SearchUiState>(SearchUiState.Success())
+    val state: StateFlow<SearchUiState> = _state
 
     private var job: Job? = null
 
@@ -53,16 +53,16 @@ class SearchFragmentViewModel(
 
             // if empty, return empty list so the UI updates
             if (searchTerm.isEmpty()) {
-                _state.value = UiState.Success(emptyList())
+                _state.value = SearchUiState.Success(emptyList())
                 return@launch
             }
 
             when (val result = repository.searchVenues(searchTerm)) {
                 is VenueSearchResult.Success -> {
-                    _state.value = UiState.Success(items = map(result.venues))
+                    _state.value = SearchUiState.Success(items = map(result.venues))
                 }
                 is VenueSearchResult.Error -> {
-                    _state.value = UiState.Error
+                    _state.value = SearchUiState.Error
                 }
             }
         }
@@ -113,13 +113,13 @@ class SearchFragmentViewModel(
 /**
  *  Sealed class hierarchy for encapsulating the different UI States for the [SearchFragment]
  */
-sealed class UiState {
+sealed class SearchUiState {
 
     // indicates an error has occurred
-    object Error : UiState()
+    object Error : SearchUiState()
 
     // indicates a state with data to render: the list of venues
-    data class Success(val items: List<VenueListItem> = emptyList()) : UiState()
+    data class Success(val items: List<VenueListItem> = emptyList()) : SearchUiState()
 }
 
 /**

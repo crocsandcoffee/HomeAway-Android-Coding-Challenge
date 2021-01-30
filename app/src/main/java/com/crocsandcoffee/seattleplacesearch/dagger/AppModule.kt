@@ -25,7 +25,7 @@ object AppModule {
             .getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
             .metaData
             .run {
-                getString("com.crocsandcoffee.foursquare.CLIENT_ID", "")
+                getString("com.crocsandcoffee.foursquare.CLIENT_SECRET", "")
             }
     }
 
@@ -38,7 +38,7 @@ object AppModule {
             .getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
             .metaData
             .run {
-                getString("com.crocsandcoffee.foursquare.CLIENT_SECRET", "")
+                getString("com.crocsandcoffee.foursquare.CLIENT_ID", "")
             }
     }
 

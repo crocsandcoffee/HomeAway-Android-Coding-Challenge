@@ -3,6 +3,7 @@ package com.crocsandcoffee.seattleplacesearch.main.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -13,11 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.crocsandcoffee.seattleplacesearch.R
 import com.crocsandcoffee.seattleplacesearch.SeattlePlaceSearchApplication
-import com.crocsandcoffee.seattleplacesearch.databinding.SearchFragmentBinding
+import com.crocsandcoffee.seattleplacesearch.databinding.FragmentSearchBinding
 import com.crocsandcoffee.seattleplacesearch.main.ui.adapter.VenuesListAdapter
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.MainActivityViewModel
 import com.crocsandcoffee.seattleplacesearch.main.viewmodel.SearchFragmentViewModel
-import com.crocsandcoffee.seattleplacesearch.main.viewmodel.UiState
+import com.crocsandcoffee.seattleplacesearch.main.viewmodel.SearchUiState
 import javax.inject.Inject
 
 /**
@@ -25,15 +26,15 @@ import javax.inject.Inject
  *
  * [Fragment] UI controller for displaying a search bar to query venues and display a list of the results
  */
-class SearchFragment : Fragment(R.layout.search_fragment) {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     companion object {
         fun newInstance() = SearchFragment()
     }
 
     // Scoped to the lifecycle of the fragment's view (between onCreateView and onDestroyView)
-    private var _binding: SearchFragmentBinding? = null
-    private val binding: SearchFragmentBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding
         get() = _binding!!
 
     @Inject
@@ -63,7 +64,14 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         // bind our already created view to our ViewBinding class
-        _binding = SearchFragmentBinding.bind(view)
+        _binding = FragmentSearchBinding.bind(view)
+
+        (requireActivity() as AppCompatActivity).apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(true)
+            }
+        }
 
         setupRecyclerView()
         setupSearchBar()
@@ -96,14 +104,14 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
         }
     }
 
-    private fun render(state: UiState) {
+    private fun render(state: SearchUiState) {
         when (state) {
-            UiState.Error -> {
+            SearchUiState.Error -> {
                 binding.errorText.isVisible = true
                 binding.recyclerView.isVisible = false
                 binding.emptyGroup.isVisible = false
             }
-            is UiState.Success -> {
+            is SearchUiState.Success -> {
 
                 adapter.submitList(state.items)
 

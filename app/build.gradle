@@ -130,6 +130,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"
+    implementation "com.android.support:customtabs:$custom_tabs_version"
 
     // Misc 3rd party libs
     implementation "org.apache.commons:commons-collections$apache_commons"
