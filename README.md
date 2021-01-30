@@ -28,7 +28,7 @@ This sample app uses the [FourSquare Places API](https://developer.foursquare.co
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.png" width="240">
 
 ### Dark Mode
-<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details_dark.png" width="240">
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details_dark.jpg" width="240">
 
 ### The Google Static Maps API is used to render a map view of the two relevant coordinates, along with additional info.
 <img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.gif" width="240">
