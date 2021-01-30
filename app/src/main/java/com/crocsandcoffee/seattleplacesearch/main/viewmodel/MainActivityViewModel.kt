@@ -14,7 +14,9 @@ import javax.inject.Inject
 /**
  * @author Omid
  *
- * TODO:
+ * [ViewModel] for [MainActivity] that handles navigation events
+ *
+ * A [SharedFlow] is emitted, which acts like a Event Bus. See [_event]
  */
 class MainActivityViewModel(
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main
@@ -23,8 +25,11 @@ class MainActivityViewModel(
     private val _event = MutableSharedFlow<NavigationEvent>()
     val event: SharedFlow<NavigationEvent> = _event
 
-    fun launchDetails(id: String) = viewModelScope.launch(mainDispatcher) {
-        _event.emit(NavigationEvent.NavigateToDetails(id))
+    /**
+     * Launch the Venue Details Screen
+     */
+    fun launchDetails(venueId: String) = viewModelScope.launch(mainDispatcher) {
+        _event.emit(NavigationEvent.NavigateToDetails(venueId))
     }
 
     class Factory @Inject constructor(
@@ -36,6 +41,9 @@ class MainActivityViewModel(
     }
 }
 
+/**
+ * Represents the possible Navigation events supported in this flow
+ */
 sealed class NavigationEvent {
     data class NavigateToDetails(val id: String) : NavigationEvent()
 }

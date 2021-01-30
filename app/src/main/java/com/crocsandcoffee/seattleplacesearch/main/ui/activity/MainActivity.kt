@@ -19,7 +19,10 @@ import javax.inject.Inject
 /**
  * @author Omid
  *
- * TODO:
+ * UI Controller for displaying the following fragments:
+ *
+ * [SearchFragment] - allows the user to search for a venue and see search results
+ * [DetailsFragment] - displays the details of a venue
  */
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        // only replace if this is the initial create
         if (savedInstanceState == null) {
             replaceFragment(SearchFragment.newInstance())
         }

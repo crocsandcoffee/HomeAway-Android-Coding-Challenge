@@ -24,10 +24,9 @@ import javax.inject.Inject
 /**
  * @author Omid
  *
- * TODO:
+ * [Fragment] UI controller for displaying details about a venue
  */
 class DetailsFragment : Fragment(R.layout.fragment_details) {
-
 
     companion object {
         const val TAG = "DetailsFragment"
@@ -72,7 +71,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailsBinding.bind(view)
 
-
         (requireActivity() as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.apply {
@@ -81,6 +79,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
         }
 
+        // kick off the download
         viewModel.loadDetails()
 
         subscribe()
@@ -172,6 +171,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 binding.venueDetails.venueWebsite.isVisible = state.venueUrl.isNotEmpty()
                 binding.venueDetails.venueWebsite.text = state.venueUrl
                 binding.venueDetails.venueWebsite.setOnClickListener {
+                    // launch the web browser as a chrome tab to show the venues site
                     CustomTabsIntent
                         .Builder()
                         .build()

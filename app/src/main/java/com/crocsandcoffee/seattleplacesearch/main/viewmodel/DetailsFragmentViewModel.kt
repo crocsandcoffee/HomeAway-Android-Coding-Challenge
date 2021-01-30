@@ -13,6 +13,7 @@ import com.crocsandcoffee.seattleplacesearch.main.api.SEATTLE_WASHINGTON_CENTER
 import com.crocsandcoffee.seattleplacesearch.main.model.Category
 import com.crocsandcoffee.seattleplacesearch.main.model.VenueDetails
 import com.crocsandcoffee.seattleplacesearch.main.model.VenueDetailsResult
+import com.crocsandcoffee.seattleplacesearch.main.repository.SearchVenueRepository
 import com.crocsandcoffee.seattleplacesearch.main.repository.VenueDetailRepository
 import com.crocsandcoffee.seattleplacesearch.main.ui.fragment.DetailsFragment
 import kotlinx.coroutines.CoroutineDispatcher
@@ -30,7 +31,15 @@ private const val VENUE_MARKER_BASE = "&markers=color:red|"
 /**
  * @author Omid
  *
- * TODO:
+ * [ViewModel] for [DetailsFragment]
+ *
+ * Responsible for loading details about a venue via [venueId] from [VenueDetailRepository]
+ * and mapping the backend model to our Ui model.
+ *
+ * This ViewModel emits a single [state] which indicates the UI state.
+ *
+ * A [savedStateHandle] is passed to this VM so the [venueId] can be retrieved and can be
+ * persisted in case this [ViewModel] gets destroyed and recreated by the system
  */
 class DetailsFragmentViewModel(
     private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
@@ -94,6 +103,8 @@ class DetailsFragmentViewModel(
     }
 
     private fun buildMapUrl(lat: Double?, long: Double?): String {
+
+        // if either of these coordinates are null, just default to the map of seattle
         return if (lat == null || long == null) {
             "${BASE_MAP_URL}${SEATTLE_WASHINGTON_MARKER}&key=$apiKey"
         } else {
