@@ -14,3 +14,7 @@ Here's a full breakdown of the project:
 This sample app uses the [FourSquare Places API](https://developer.foursquare.com/docs/places-api/) for powering it's search and other queries. 
 
 You can search venues via any keyword and see a list of your results. Tapping on a venue will launch a details screen with more in depth information about a venue. 
+
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/search.png" width="240">
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.png" width="240">
+<img src="https://github.com/crocsandcoffee/HomeAway-Android-Coding-Challenge/blob/main/demo/details.gif" width="240">
