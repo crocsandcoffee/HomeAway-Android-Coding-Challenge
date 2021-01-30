@@ -73,6 +73,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false, tag: String? = null) {
         supportFragmentManager.commit {
+            setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
             replace(R.id.container, fragment)
             if (addToBackStack) addToBackStack(tag)
             setReorderingAllowed(true)
