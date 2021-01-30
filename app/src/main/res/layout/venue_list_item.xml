@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorOnPrimary"
+    app:cardCornerRadius="@dimen/item_card_corner_radius_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimaryVariant"
+        android:padding="@dimen/item_card_padding_dp">
+
+        <TextView
+            android:id="@+id/venue_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_horizontal_spacing_dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?colorOnPrimary"
+            android:textSize="@dimen/primary_label_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/venue_category"
+            app:layout_constraintEnd_toStartOf="@+id/venue_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Storyville Coffee Company" />
+
+        <TextView
+            android:id="@+id/venue_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_horizontal_spacing_dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?colorOnPrimary"
+            android:textSize="@dimen/secondary_label_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/venue_distance"
+            app:layout_constraintEnd_toStartOf="@+id/venue_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/venue_name"
+            tools:text="Coffee Shop" />
+
+        <TextView
+            android:id="@+id/venue_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_horizontal_spacing_dp"
+            android:lines="1"
+            android:textColor="?colorOnPrimary"
+            android:textSize="@dimen/secondary_label_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/venue_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/venue_category"
+            tools:text="Distance from Seattle: 7 meters" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/venue_icon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="?colorOnPrimary"
+            android:scaleType="centerCrop"
+            android:tint="?colorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.SelectedCornerRadius" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

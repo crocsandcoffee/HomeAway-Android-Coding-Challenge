@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="recycler_view_top_margin_dp">8dp</dimen>
+    <dimen name="recycler_view_horizontal_margin_dp">12dp</dimen>
     <dimen name="header_text_size_sp">18sp</dimen>
     <dimen name="input_layout_spacing_dp">8dp</dimen>
+    <dimen name="item_card_corner_radius_dp">4dp</dimen>
+    <dimen name="item_card_padding_dp">20dp</dimen>
+    <dimen name="item_horizontal_spacing_dp">8dp</dimen>
+    <dimen name="primary_label_text_size">18sp</dimen>
+    <dimen name="secondary_label_text_size">14sp</dimen>
 </resources>

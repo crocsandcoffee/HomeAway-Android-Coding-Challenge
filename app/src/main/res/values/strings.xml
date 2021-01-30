@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SeattlePlaceSearch</string>
-    <string name="search_hint">Search a keyword</string>
-    <string name="no_results">No results</string>
+    <string name="search_hint">Search Venues</string>
+    <string name="no_results">No results. Please try another search term.</string>
+    <string name="error_msg">Something went wrong. :( Please try another search term.</string>
+    <string name="distance_label">Distance from Seattle: %sm</string>
 </resources>
